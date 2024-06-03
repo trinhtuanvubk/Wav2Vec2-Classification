@@ -10,6 +10,7 @@ pip install -r requirements.txt
 ### Data
 
 - Data Tree (each folder name inside sounds is a class): 
+```
 |___data
     |___sounds
         |___1 folder
@@ -17,7 +18,7 @@ pip install -r requirements.txt
         |___n folder
     |___train.csv
     |___test.csv
-
+```
 - To generate `train.csv` and  `test.csv`:
 ```bash
 python3 dataset.py
