@@ -10,8 +10,8 @@ from transformers import TrainingArguments, Trainer
 
 class Wav2Vec2ClasificationTrainer:
     def __init__(self,
-                 train_csv_path,
-                 eval_csv_path,
+                 train_csv_path=None,
+                 eval_csv_path=None,
                  model_name="facebook/wav2vec2-base-100k-voxpopuli",
                  num_epochs=50,
                  batch_size=16,
