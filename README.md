@@ -40,6 +40,6 @@ python3 train.py \
 
 ```bash
 python3 infer.py \
---model_path "checkpoints/checkpoint_name
+--model_path "checkpoints/checkpoint_name \
 --audio_filepath path/to/audiofile
 ```
