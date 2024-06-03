@@ -1,5 +1,5 @@
 import os
-
+import argparse
 from transformers import AutoConfig, Wav2Vec2Processor, Wav2Vec2FeatureExtractor
 
 from dataloader import dataloader, DataCollatorCTCWithPadding
@@ -13,16 +13,22 @@ class Wav2Vec2ClasificationTrainer:
                  train_csv_path,
                  eval_csv_path,
                  model_name="facebook/wav2vec2-base-100k-voxpopuli",
+                 num_epochs=50,
+                 batch_size=16
                  pooling_mode="mean",
                  is_regression=False
                  ):
+        # training config
+        self.num_epochs = num_epochs
+        self.batch_size = batch_size
+        
         # csv dataset
         train_dataset, eval_dataset = dataloader(train_csv_path, eval_csv_path)
         
-        # option for testing
-        max_samples = 4
-        train_dataset = train_dataset.select(range(max_samples))
-        eval_dataset = eval_dataset.select(range(max_samples))
+        # # option for testing
+        # max_samples = 4
+        # train_dataset = train_dataset.select(range(max_samples))
+        # eval_dataset = eval_dataset.select(range(max_samples))
         
         # label
         self.label_list = train_dataset.unique("label")
@@ -77,10 +83,10 @@ class Wav2Vec2ClasificationTrainer:
         os.makedirs("checkpoints", exist_ok=True)
         self.training_args = TrainingArguments(
                 output_dir="checkpoints/",
-                per_device_train_batch_size=1,
+                per_device_train_batch_size=self.batch_size,
                 per_device_eval_batch_size=1,
                 gradient_accumulation_steps=2,
-                num_train_epochs=1,
+                num_train_epochs=self.num_epochs,
                 fp16=True,
                 save_steps=10,
                 eval_steps=10,
@@ -103,8 +109,19 @@ class Wav2Vec2ClasificationTrainer:
         self.trainer.train()
     
 if __name__=="__main__":
-    train_csv_path = "data/train.csv"
-    eval_csv_path = "data/test.csv"
-    trainer = Wav2Vec2ClasificationTrainer(train_csv_path, eval_csv_path)
+    parser = argparse.ArgumentParser(description='Wav2Vec2 Classification Trainer')
+    # Add arguments
+    parser.add_argument('--train_csv_path', type=str, default="data/train.csv")
+    parser.add_argument('--eval_csv_path', type=str, default="data/test.csv")
+    parser.add_argument('--num_epochs', type=int, default=50)
+    parser.add_argument('--batch_size', type=int, default=8)
+    # Parse the arguments
+    args = parser.parse_args()
+    
+    trainer = Wav2Vec2ClasificationTrainer(
+                    args.train_csv_path, 
+                    args.eval_csv_path,
+                    args.num_epochs,
+                    args.batch_size)
     trainer.train()
     
