@@ -3,4 +3,4 @@ transformers
 jiwer
 torchaudio
 librosa==0.9.2
-sklearn
+scikit-learn
