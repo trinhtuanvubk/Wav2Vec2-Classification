@@ -14,7 +14,7 @@ class Wav2Vec2ClasificationTrainer:
                  eval_csv_path,
                  model_name="facebook/wav2vec2-base-100k-voxpopuli",
                  num_epochs=50,
-                 batch_size=16
+                 batch_size=16,
                  pooling_mode="mean",
                  is_regression=False
                  ):
@@ -113,6 +113,7 @@ if __name__=="__main__":
     # Add arguments
     parser.add_argument('--train_csv_path', type=str, default="data/train.csv")
     parser.add_argument('--eval_csv_path', type=str, default="data/test.csv")
+    parser.add_argument('--model_name', type=str, default="facebook/wav2vec2-base-100k-voxpopuli")
     parser.add_argument('--num_epochs', type=int, default=50)
     parser.add_argument('--batch_size', type=int, default=8)
     # Parse the arguments
