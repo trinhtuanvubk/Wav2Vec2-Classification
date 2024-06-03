@@ -71,6 +71,8 @@ class Wav2Vec2ClasificationTrainer:
                     )
         setattr(self.config, 'pooling_mode', pooling_mode)
         
+        print(self.config.device)
+        
         
         # model
         self.model = Wav2Vec2ForSpeechClassification.from_pretrained(
