@@ -1,18 +1,21 @@
-
-
+import torch
+import torchaudio
+import numpy as np
 import transformers
 from transformers import AutoConfig, Wav2Vec2FeatureExtractor
-
+from train import Wav2Vec2ClasificationTrainer
 from model import Wav2Vec2ForSpeechClassification
+import librosa
+device = torch.device("cuda")
 
+print()
 
-model_name_or_path = "m3hrdadfi/wav2vec2-base-100k-eating-sound-collection"
+model_name_or_path = "/content/Wav2Vec2-Classification/checkpoints/checkpoint-40"
 config = AutoConfig.from_pretrained(model_name_or_path)
 feature_extractor = Wav2Vec2FeatureExtractor.from_pretrained(model_name_or_path)
 model = Wav2Vec2ForSpeechClassification.from_pretrained(model_name_or_path).to(device)
 
-
-
+id2label = Wav2Vec2ClasificationTrainer("data/train.csv", "data/train.csv").config.id2label
 
 speech_array, sampling_rate = torchaudio.load("data/sounds/burger/burger_1_01.wav")
 speech_array = speech_array.squeeze().numpy()
@@ -27,3 +30,4 @@ with torch.no_grad():
 
 pred_ids = torch.argmax(logits, dim=-1).detach().cpu().numpy()
 print(pred_ids)
+print(id2label[pred_ids[0]])
