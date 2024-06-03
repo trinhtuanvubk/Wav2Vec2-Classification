@@ -35,6 +35,11 @@ def infer(model_path = "/content/Wav2Vec2-Classification/checkpoints/checkpoint-
 
 
 if __name__=="__main__":
-    model_path = "/content/Wav2Vec2-Classification/checkpoints/checkpoint-40"
-    audio_filepath = "data/sounds/burger/burger_1_01.wav"
-    infer(model_path, audio_filepath)
+    parser = argparse.ArgumentParser(description='Wav2Vec2 Classification Trainer')
+    # Add arguments
+    parser.add_argument('--model_path', type=str, default="/content/Wav2Vec2-Classification/checkpoints/checkpoint-40")
+    parser.add_argument('--audio_filepath', type=str, default="data/sounds/burger/burger_1_01.wav")
+    # Parse the arguments
+    args = parser.parse_args()
+    
+    infer(args.model_path, args.audio_filepath)

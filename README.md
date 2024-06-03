@@ -39,5 +39,7 @@ python3 train.py \
 - To infer:
 
 ```bash
-python3 infer.py
+python3 infer.py \
+--model_path "checkpoints/checkpoint_name
+--audio_filepath path/to/audiofile
 ```
