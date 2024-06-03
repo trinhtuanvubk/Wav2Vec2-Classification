@@ -122,6 +122,7 @@ if __name__=="__main__":
     trainer = Wav2Vec2ClasificationTrainer(
                     args.train_csv_path, 
                     args.eval_csv_path,
+                    args.model_name,
                     args.num_epochs,
                     args.batch_size)
     trainer.train()
