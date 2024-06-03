@@ -4,6 +4,7 @@
 ### Installation
 ```bash
 conda create -n py38 python=3.8.8
+conda activate py38
 pip install -r requirements.txt
 ```
 
