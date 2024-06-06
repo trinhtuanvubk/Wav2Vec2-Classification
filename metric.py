@@ -2,7 +2,7 @@ import numpy as np
 from transformers import EvalPrediction
 
 
-def compute_metrics(p: EvalPrediction):
+def compute_metrics(p: EvalPrediction, is_regression=False):
     preds = p.predictions[0] if isinstance(p.predictions, tuple) else p.predictions
     preds = np.squeeze(preds) if is_regression else np.argmax(preds, axis=1)
 
