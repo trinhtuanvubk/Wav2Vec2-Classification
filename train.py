@@ -15,6 +15,7 @@ class Wav2Vec2ClasificationTrainer:
                  model_name="facebook/wav2vec2-base-100k-voxpopuli",
                  num_epochs=50,
                  batch_size=16,
+                 train_samples=False
                  pooling_mode="mean",
                  is_regression=False
                  ):
@@ -25,10 +26,12 @@ class Wav2Vec2ClasificationTrainer:
         # csv dataset
         train_dataset, eval_dataset = dataloader(train_csv_path, eval_csv_path)
         
-        # # option for testing
-        # max_samples = 4
-        # train_dataset = train_dataset.select(range(max_samples))
-        # eval_dataset = eval_dataset.select(range(max_samples))
+        
+        # option for testing
+        if train_samples:
+            max_samples = 20
+            train_dataset = train_dataset.select(range(max_samples))
+            eval_dataset = eval_dataset.select(range(max_samples))
         
         # label
         self.label_list = train_dataset.unique("label")
@@ -117,6 +120,7 @@ if __name__=="__main__":
     parser.add_argument('--model_name', type=str, default="facebook/wav2vec2-base-100k-voxpopuli")
     parser.add_argument('--num_epochs', type=int, default=50)
     parser.add_argument('--batch_size', type=int, default=8)
+    parser.add_argument('--train_samples', type=int, action="store_true")
     # Parse the arguments
     args = parser.parse_args()
     
@@ -125,6 +129,7 @@ if __name__=="__main__":
                     args.eval_csv_path,
                     args.model_name,
                     args.num_epochs,
-                    args.batch_size)
+                    args.batch_size,
+                    args.train_samples)
     trainer.train()
     
