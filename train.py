@@ -84,7 +84,7 @@ class Wav2Vec2ClasificationTrainer:
                         model_name,
                         config=self.config,
                     )
-        print(model)
+        print(self.model)
         
         if freeze_model:
             self.model.freeze_feature_extractor()
