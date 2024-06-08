@@ -32,6 +32,7 @@ python3 train.py \
 --model_name "facebook/wav2vec2-base-100k-voxpopuli" \
 --num_epochs 50 \
 --batch_size 32 \
+--learning_rate 1e-4
 ```
 
 
