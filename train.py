@@ -15,7 +15,7 @@ class Wav2Vec2ClasificationTrainer:
                  model_name="facebook/wav2vec2-base-100k-voxpopuli",
                  num_epochs=50,
                  batch_size=16,
-                 train_samples=False
+                 train_samples=False,
                  pooling_mode="mean",
                  is_regression=False
                  ):
@@ -29,9 +29,10 @@ class Wav2Vec2ClasificationTrainer:
         
         # option for testing
         if train_samples:
-            max_samples = 20
-            train_dataset = train_dataset.select(range(max_samples))
-            eval_dataset = eval_dataset.select(range(max_samples))
+            max_samples_train = 20
+            max_samples_test = 10
+            train_dataset = train_dataset.select(range(max_samples_train))
+            eval_dataset = eval_dataset.select(range(max_samples_test))
         
         # label
         self.label_list = train_dataset.unique("label")
