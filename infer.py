@@ -18,6 +18,7 @@ def infer(model_path = "/content/Wav2Vec2-Classification/checkpoints/checkpoint-
 
     # id2label = Wav2Vec2ClasificationTrainer("data/train.csv", "data/train.csv").config.id2label
     id2label = config.id2label
+    print(id2label)
 
     speech_array, sampling_rate = torchaudio.load(audio_filepath)
     speech_array = speech_array.squeeze().numpy()
