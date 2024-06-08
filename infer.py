@@ -30,9 +30,9 @@ def infer(model_path = "/content/Wav2Vec2-Classification/checkpoints/checkpoint-
 
     with torch.no_grad():
         logits = model(input_values).logits
-    print(logits)
+    # print(logits)
     pred_ids = torch.argmax(logits, dim=-1).detach().cpu().numpy()
-    print(pred_ids)
+    # print(pred_ids)
     print(id2label[pred_ids[0]])
 
 
