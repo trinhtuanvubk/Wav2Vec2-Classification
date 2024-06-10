@@ -24,7 +24,7 @@ class Wav2Vec2ClasificationTrainer:
         # training config
         self.num_epochs = num_epochs
         self.batch_size = batch_size
-        
+        self.learning_rate = learning_rate
         # csv dataset
         train_dataset, eval_dataset = dataloader(train_csv_path, eval_csv_path)
         
@@ -100,7 +100,7 @@ class Wav2Vec2ClasificationTrainer:
                 save_steps=10,
                 eval_steps=10,
                 logging_steps=10,
-                learning_rate=1e-4,
+                learning_rate=self.learning_rate,
                 save_total_limit=2,
             )
         
@@ -137,6 +137,7 @@ if __name__=="__main__":
                     args.model_name,
                     args.num_epochs,
                     args.batch_size,
+                    args.learning_rate,
                     args.train_samples)
     trainer.train()
     
