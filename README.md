@@ -30,9 +30,9 @@ python3 dataset.py
 ```bash
 python3 train.py \
 --model_name "facebook/wav2vec2-base-100k-voxpopuli" \
---num_epochs 50 \
+--num_epochs 10 \
 --batch_size 32 \
---learning_rate 1e-4
+--learning_rate 6e-5
 ```
 
 
